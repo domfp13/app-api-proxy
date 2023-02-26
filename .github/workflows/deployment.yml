@@ -13,12 +13,10 @@ env:
 
 jobs:
   build:
-
+    name: Docker build
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      - name: Build the Docker image
       - run: mkdir data/
       - run: docker build --compress -t proxy .
       - run: docker save -- output data/image.tar proxy
