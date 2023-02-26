@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
       - name: Build the Docker image
+      - uses: actions/checkout@v3
       - run: mkdir data/
       - run: docker build --compress -t proxy .
       - run: docker save -- output data/image.tar proxy
