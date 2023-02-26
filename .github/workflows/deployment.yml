@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: mkdir data/
       - run: docker build --compress -t proxy .
-      - run: docker save -- output data/image.tar proxy
+      - run: docker save --output data/image.tar proxy
       - uses: actions/upload-artifact@v3
         with:
           name: image
