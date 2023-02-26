@@ -1,2 +1,2 @@
 # app-api-proxy
-Web app proxy application
+NGINX proxy for a web-app
