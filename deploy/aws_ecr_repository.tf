@@ -7,8 +7,9 @@ resource "aws_ecr_repository" "app-api-proxy" {
   }
 }
 
-resource "aws_ecr_repository_policy" "app-api-proxy-policy" {
-  repository = aws_ecr_repository.app-api-proxy.name
+resource "aws_iam_policy" "app-api-proxy-policy" {
+  name        = "app-api-proxy-policy"
+  description = "Policy created for a CI process, for the app-api-proxy project"
 
   policy = <<EOF
 {
