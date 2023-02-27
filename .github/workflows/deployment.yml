@@ -24,8 +24,10 @@ jobs:
         with:
           name: image
           path: data/
+  
   push:
     name: ECR push
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download image build from previus job
