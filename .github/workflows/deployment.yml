@@ -24,3 +24,16 @@ jobs:
         with:
           name: image
           path: data/
+  push:
+    name: ECR push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download image build from previus job
+        uses: actions/download-artifact@v3
+        with:
+          name: image
+      - shell: bash
+        run: |
+          pip3 install awscli==1.18.8
+          docker load --input data/image.tar
+          $(aws ecr get-login --no-include-email --region us-east-1)
