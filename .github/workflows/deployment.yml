@@ -16,11 +16,9 @@ jobs:
     name: Docker build
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: |
-          mkdir data/
       - name: Save results in artififact
         uses: actions/checkout@v3
+      - run: mkdir data/
       - run: docker build --compress -t proxy .
       - run: docker save --output data/image.tar proxy
       - uses: actions/upload-artifact@v3
