@@ -37,5 +37,4 @@ jobs:
           name: image
       - shell: bash
         run: |
-          pip3 install awscli==1.18.8
           docker load --input data/image.tar
