@@ -24,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: image
-          path: data/
+          path: data/image.tar
   
   push:
     name: ECR push
@@ -38,3 +38,4 @@ jobs:
       - shell: bash
         run: |
           pip3 install awscli==1.18.8
+          docker load --input data/image.tar
