@@ -18,13 +18,12 @@ jobs:
     steps:
       - name: Save results in artififact
         uses: actions/checkout@v3
-      - run: mkdir data/
       - run: docker build --compress -t proxy .
-      - run: docker save --output data/image.tar proxy
+      - run: docker save --output image.tar proxy
       - uses: actions/upload-artifact@v3
         with:
           name: image
-          path: data/image.tar
+          path: image.tar
   
   push:
     name: ECR push
@@ -37,4 +36,4 @@ jobs:
           name: image
       - shell: bash
         run: |
-          docker load --input data/image.tar
+          docker load --input image.tar
