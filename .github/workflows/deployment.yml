@@ -16,11 +16,28 @@ jobs:
     name: Docker build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: mkdir data/
+      - name: Save results in artififact
+        uses: actions/checkout@v3
       - run: docker build --compress -t proxy .
-      - run: docker save --output data/image.tar proxy
+      - run: docker save --output image.tar proxy
       - uses: actions/upload-artifact@v3
         with:
           name: image
-          path: data/
+          path: image.tar
+  
+  push:
+    name: ECR push
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download image build from previus job
+        uses: actions/download-artifact@v3
+        with:
+          name: image
+      - shell: bash
+        run: |
+          pip3 install awscli==1.18.8
+          docker load --input image.tar
+          $(aws ecr get-login --no-include-email --region us-east-1)
+          docker tag proxy:latest $ECR_REPO:prod
+          docker push $ECR_REPO:prod
